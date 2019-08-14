@@ -1,5 +1,6 @@
-var ContractName = artifacts.require("./ContractName.sol");
+// eslint-disable-next-line no-undef
+var Patron = artifacts.require("./Patron.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(ContractName);
+  deployer.deploy(Patron);
 };
