@@ -1,47 +1,78 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Patron 
+> A distributed web application (aka Dapp) to accept donations on behalf of the content creators, helping newbies to develop skills and give back to the community.
 
-## Available Scripts
+### Business use case
+> TLDR; No business, only good hearts here to collaborate!
 
-In the project directory, you can run:
+This is an MVP for the width and depth of this idea. I'm working on it to build a one stop solution for all content creators regardless of their technical background. Although, every information about their contract will be available to them on-demand, yet there's nothing they need to do except making an account and preserving their private key.
 
-### `npm start`
+In future, I'm planning to extend this application's capability by introducing premium media and webstore which would be store data off-chain, some of it has been implemented already. Don't you worry crypto-and-privacy-nerds we have merkle trees for our rescue when we pull it off for scaling it into the secure storage domain. There's IPFS and all sort of buzzwords to mention here but let's keep it to the next release. Till then, know someone is working full time on this project and would love to give back to the community that has helped me learn more :)
+That's the spirit of Patron!
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Technical Details
+> This part is for the college rubric
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+**Backend:** 
+- Solidity Smart contract (using higher level concepts mentioned in [separate contract respository](https://github.com/shailshukla96/patron))
+- Hosting (serverless deployment and contract on the test network)
+- Migrations for contracts written in `migrations` directory
+- Database and get/post calls (used firebase to achieve that)
+- Dotenv (not required as I have been using config files, still I have added it to complete rubric)
+- Testing (Rigorously done using improved remix solidity code editor)
 
-### `npm test`
+**Frontend:**
+- Used React for frontend. Refer the `public`, `src` and `src/components` directory for frontend
+- Managed state in components for the initial MVP as it wasn't a requirement for me while drafting the SOW (for a more precise explanantion please refer [this blog by Dan Abramov](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367))
+- Connected to backend by using Metamask, my second love in the blockchain industry!
+- Proudly hosted using serverless deployment, thanks to Zeit now and Firebase
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Documentation:**
+- Business use case and Readme are in the repository explaining the idea of dapp, motivation and approach too.
+- Instructions can be collectively learned on this repository and the [separate contract respository](https://github.com/shailshukla96/patron) too.
+- I've used ESLint for clean code using EcmaScript and Official documentation guide for Smart Contract dev documentation
 
-### `npm run build`
+**Pipeline:**
+- I strongly believe for such a small project which has to build in a few weeks, it has not grown up to a level to implement CI/CD pipeline (ref [Thoughworks](https://www.thoughtworks.com/continuous-integration) and [Whitepaper by Martin Fowler](https://www.martinfowler.com/articles/continuousIntegration.html))
+- The git workflow is my favourite part so before doing this project I signed up for GitHub student pack and Development Program. Thanks to gitHub!
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**File Layout:**
+- Directory structure was the biggest bottleneck and to implement that I referred to Gregory's suggestions and also dug deep into Truffle's scaffolding code for React Dapps. 
+- One more reference was the embark directory structure and then finally I made around 5 small partially completed projects to come up to the Boilerplate code that I have now for making Dapps. (Ref [Pre release tag](https://github.com/shailshukla96/patron-dapp/releases/tag/v0.1-alpha))
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**Miscellaneous:**
+- Use of TailwindCSS, and minimal design concepts
+- Worked with git tags and releases
+- Brainstormed over directory structure and importance of separation of concerns and clean code.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**A big thanks to the mentors of Blockchain Development program at George brown College!**
+<br><br>
 
-### `npm run eject`
+# Deployment
+The contracts are deployed at testnet, visit etherscan.io for details of [Patron](), [Patron Factory](), and [Patron Dashboard]() contracts.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The site is live using Firebase hosting, please visit the website [here]().
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Do it yourself
+Deploy the contracts on a network of your choice, using `truffle migrate`, `truffle deploy` or manually doing it using [Remix](https://remix.ethereum.org).
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Change the contract address and network ID in the contract abi available in the `src/abi` directory, if you deployed it manually.
+```JSON
+"networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x60...5af9d7",
+      "transactionHash": "0x94...7059d428"
+    }
+```
+To run the app locally follor the commands below:
+```Shell
+npm install     # install dependencies
+npm start       # run the app on localhost:3000
+```
+Your app must start at localhost:3000, for more information visit [React Documentation](https://reactjs.org/docs/getting-started.html)
+<br>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-# About this template
-> This template has been created by Shailendra Shukla <br> To know more, visit: <br> https://shailendrashukla.com <br> https://github.com/shailshukla96
+# Author
+> This project has been created by Shailendra Shukla <br>GBC ID: 101224373,<br>E-mail: shailendra.shukla@georgebrown.ca <br>
+<br> To know more about Shailendra, please visit: <br> https://shailendrashukla.com <br> https://github.com/shailshukla96

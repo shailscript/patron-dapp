@@ -4,7 +4,7 @@ class CreateAccount extends Component {
     render() {
         return (
             <form 
-                className="-mt-40 mb-20 p-10 bg-gray-400 opacity-75 mx-8 container mx-auto flex flex-wrap justify-around"
+                className="-mt-20 mb-20 p-10 shadow-lg rounded-lg bg-white container mx-auto flex flex-wrap justify-center"
                 onSubmit = { (event) => {
                     event.preventDefault();
                     const name = this.name.value;
@@ -13,25 +13,29 @@ class CreateAccount extends Component {
                     }
                 }
             >
-                <input 
-                    className="p-2 rounded opacity-100"
-                    id="name"
-                    type="text" 
-                    placeholder="Name"
-                    ref={ (input) => { this.name = input }}
-                    required 
-                />
+                <div className="flex flex-col">
+                    <input 
+                        className="p-2 w-full md:w-64 rounded border-black border-b mx-2"
+                        id="name"
+                        type="text"
+                        placeholder="Name"
+                        ref={ (input) => { this.name = input }}
+                        required 
+                    />
+                </div>
 
-                <input
-                    className="p-2 rounded opacity-100"
-                    id="email"
-                    type="text"
-                    placeholder="Email"
-                    ref={ (input) => { this.email = input }}
-                    required 
-                />
+                <div className="flex flex-col">
+                    <input
+                        className="p-2 w-full md:w-64 rounded border-black border-b mx-2"
+                        id="email"
+                        type="text"
+                        placeholder="Email"
+                        ref={ (input) => { this.email = input }}
+                        required 
+                    />
+                </div>
 
-                <button type="submit">Create Account</button>
+                <button className="bg-yellow-600 w-full md:w-64 px-4 rounded text-yellow-900 mx-2" type="submit"><i className="fas fa-user text-sm pr-2"></i> Create Account</button>
             </form>
         )
     }
