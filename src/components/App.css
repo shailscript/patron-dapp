@@ -3,8 +3,8 @@
 }
 
 .hero {
-  background-image: url('https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
-  height: 400px !important;
+  background-image: url('../background-img.jpg'); /* credits: https://unsplash.com */
+  height: 400px;
 }
 
 .App-logo {
