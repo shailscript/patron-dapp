@@ -109,8 +109,15 @@ contract Donatable{
  * on behalf of the owner for this contract.
  */
 contract Patron is Ownable, Donatable, Destructible {
-    
+
     event statusUpdated(bool currentStatus);
+    event donationSuccessful(address from, uint value);
+
+    modifier isValidDonation {
+        require(msg.sender != owner, "Owners can't donate funds to themselves");
+        require(msg.value > 0 ether, "Insufficient transfer value.");
+        _;
+    }
 
     /**
      * @dev The Ownable constructor sets the original `owner` of the contract to the sender
@@ -134,9 +141,8 @@ contract Patron is Ownable, Donatable, Destructible {
     /**
      * @dev Allows the public domain to transfer funds to the contract.
      */
-    function donate() public payable isDonationOpen {
-        require(msg.sender != owner, "You can't donate funds to yourself, dear.");
-        require(msg.value > 0 ether, "Insufficient transfer value.");
+    function donate() public payable isDonationOpen isValidDonation {
+        emit donationSuccessful(msg.sender, msg.value);
     }
 
     /**
@@ -157,6 +163,8 @@ contract PatronFactory {
     mapping (uint => address) patronsByArtists;
     uint public totalDeployments;
 
+    event newPatronDeployed(uint id, address patron, address owner);
+
     constructor() public {
         totalDeployments = 0;
     }
@@ -165,11 +173,11 @@ contract PatronFactory {
      * @dev Method to deploy Patron instance (account) and assign an ID to it.
      * @param _artistAddress Ethereum address of the artist.
      */
-    function deployPatron(address payable _artistAddress) public returns (uint id) {
+    function deployPatron(address payable _artistAddress) public {
         patronDeployments[totalDeployments] = new Patron(_artistAddress);
         patronsByArtists[totalDeployments] = _artistAddress;
         totalDeployments++;
-        return totalDeployments-1;
+        emit newPatronDeployed(totalDeployments-1, address(patronDeployments[totalDeployments-1]), _artistAddress);
     }
 
     /**
@@ -189,8 +197,7 @@ contract PatronFactory {
 contract PatronDashboard {
     PatronFactory database;
 
-    event newPatronDeployed(uint id, address patron, address owner);
-    event donationSuccessful(address from, uint value);
+    event donationComplete(address from, uint value);
 
     /**
      * @dev Constructor method to deploy instance of Dashboard contract.
@@ -204,9 +211,7 @@ contract PatronDashboard {
      * @dev Allows arbitrary artist (user) to deploy a patron contract, simply put create an account to accept donations.
      */
     function newPatronDeployment() public {
-        uint id = database.deployPatron(msg.sender);
-        Patron patron = database.getPatronDeploymentById(id);
-        emit newPatronDeployed(id, address(patron), msg.sender);
+        database.deployPatron(msg.sender);
     }
 
     /**
@@ -216,8 +221,7 @@ contract PatronDashboard {
     function donateToArtist(uint _id) public payable{
         Patron thisPatronInstance = database.getPatronDeploymentById(_id);
         thisPatronInstance.donate.value(msg.value)();
-        emit donationSuccessful(msg.sender, msg.value);
+        emit donationComplete(msg.sender, msg.value);
     }
 
 }
-
