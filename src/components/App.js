@@ -107,7 +107,7 @@ class App extends Component {
     if (!this.state.web3) {
       return (
         <div
-          className="h-screen bg-gray-200 flex flex-col mx-auto align-center justify-center"
+          className="bg-gray-200 mx-auto"
         >
           <div className="mx-auto">
             <img src={ loadingImg } alt="Loading Web3, accounts, and contract..." />
@@ -116,7 +116,7 @@ class App extends Component {
       );
     }
     return (
-      <div className="h-screen bg-gray-200">
+      <div className="bg-gray-200">
         <Navbar />
 
         <div className="hero bg-center w-screen"></div>
@@ -137,14 +137,10 @@ class App extends Component {
 
         <div>
           <form 
-            className="my-20 bg-gray flex justtify-center"
+            className="bg-gray flex justtify-center"
             onSubmit={ (event) => {event.preventDefault(); this.donate('0x09b2Cb0841b39faa2674B77Eb80C015eAd2B5e6f', "1");} }>
-            <button className="px-10 py-2 mx-auto text-xl bg-blue-900 rounded-full text-white" type="Submit">Donate</button>
+            <button className="mb-20 px-10 py-2 mx-auto text-xl bg-blue-900 rounded-full text-white" type="Submit">Donate</button>
           </form>
-        </div>
-
-        <div className="flex justtify-center">
-          <button className="mx-auto">Login</button>
         </div>
       </div>
     );
