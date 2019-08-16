@@ -17,7 +17,7 @@ class App extends Component {
       account: null, 
       contract: null,
       patrons: [],
-      loading: false,
+      loading: true,
       message: null
     };
 
@@ -37,13 +37,14 @@ class App extends Component {
           id: currValue,
           name: values[currValue].name,
           email: values[currValue].email,
-          contractId: values[currValue].ContractId,
+          contractId: values[currValue].contractId,
           contractAddress: values[currValue].contractAddress,
           ethAddress: values[currValue].ethAddress,
           balance: values[currValue].balance
         });
       }
       this.setState({ patrons, loading: false });
+      console.log(this.state.patrons)
     });
   }
 
@@ -83,7 +84,6 @@ class App extends Component {
 
       contract.methods.deployPatron(account).send( { from: account } );
       contract.events.newPatronDeployed( {}, (error, event) => {
-      console.log("Hello helo hello", event, this.state.loading);
       const ref = firebase.database().ref('patronDeployments');
       const patron = {
         name: name,
@@ -106,7 +106,7 @@ class App extends Component {
     }
   };
 
-  donate = async (to, value) => {
+  donate = async (contractId, to, value) => {
     try {
       const { web3, account } = this.state;
       const networkId = await web3.eth.net.getId();
@@ -117,12 +117,12 @@ class App extends Component {
       );
       
       value = web3.utils.toWei(value, 'ether');
-        console.log(instance)
-      instance.methods.donate().send( { from: account, value: value }, (err, txHash) => console.log(txHash));
-      instance.events.donationSuccessful( {
-        filter: { from: to }
-      }, (error, event) => {
+      instance.methods.donate().send({ from: account, value: value });
+      instance.events.donationSuccessful( {}, (error, event) => {
         console.log("Hello helo hello", event, this.state.loading);
+        firebase.database().ref('patronDeployments/'+this.state.patrons[contractId].id).update({
+          balance: this.state.patrons[contractId].balance+1
+        });
       }).on('error', console.error);
 
     } catch (error) {
@@ -151,13 +151,13 @@ class App extends Component {
           </a>
         </p>
 
-        <a
-          href="/"
+        <button
+          onClick={(event) => this.donate(index, patron.contractAddress, "1")}
           className="uppercase tracking-wider font-bold"
         >
           Donate (1ETH)
           <i className="ml-3 fas fa-arrow-right" />
-        </a>
+        </button>
       </div>
     </div>)
     })
@@ -187,14 +187,6 @@ class App extends Component {
 
         <div className="container mx-auto flex flex-wrap">
           {this.createCards()}
-        </div>
-
-        <div>
-          <form 
-            className="bg-gray flex justtify-center"
-            onSubmit={ (event) => {event.preventDefault(); this.donate('0x09b2Cb0841b39faa2674B77Eb80C015eAd2B5e6f', "1");} }>
-            <button className="mb-20 px-10 py-2 mx-auto text-xl bg-blue-900 rounded-full text-white" type="Submit">Donate</button>
-          </form>
         </div>
       </div>
     );
