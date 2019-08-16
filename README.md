@@ -16,9 +16,9 @@ That's the spirit of Patron!
 - Solidity Smart contract (using higher level concepts mentioned in [separate contract respository](https://github.com/shailshukla96/patron))
 - Hosting (serverless deployment and contract on the test network)
 - Migrations for contracts written in `migrations` directory
-- Database and get/post calls (used firebase to achieve that)
-- Dotenv (not required as I have been using config files, still I have added it to complete rubric)
-- Testing (Rigorously done using improved remix solidity code editor, but not with Mocha and Chai, my laptop damaged last night and so do you see those wierd commits that are done from a rented laptop with improper .gitconfig. I hope I can get an exception if you refer [previous projects](https://github.com/tonyfeung/crypto-lottery/tree/release-v1/test) where tests were done properly)
+- Database and get/post calls (used firebase to achieve both, and _update_ operation too!)
+- Dotenv (I have used config files, still I have added it to complete rubric)
+- Testing (Rigorously done using improved remix solidity code editor, but not with Mocha and Chai, my laptop damaged last night(Aug 15) in class and so do you see those wierd commits that are done from a friend's laptop with improper .gitconfig. I hope I can get an exception if you refer [previous projects](https://github.com/tonyfeung/crypto-lottery/tree/release-v1/test) where tests were done properly. Some commits were done from my smartphone too.)
 
 **Frontend:**
 - Used React for frontend. Refer the `public`, `src` and `src/components` directory for frontend
@@ -32,7 +32,7 @@ That's the spirit of Patron!
 - I've used ESLint for clean code using EcmaScript and Official documentation guide for Smart Contract dev documentation
 
 **Pipeline:**
-- I strongly believe for such a small project which has to build in a few weeks, it has not grown up to a level to implement CI/CD pipeline (ref [Thoughworks](https://www.thoughtworks.com/continuous-integration) and [Whitepaper by Martin Fowler](https://www.martinfowler.com/articles/continuousIntegration.html))
+- I strongly believe that, for such a small project which has to be done in a few weeks, it has not grown up to a level to implement CI/CD pipeline (ref [Thoughworks](https://www.thoughtworks.com/continuous-integration) and [Whitepaper by Martin Fowler](https://www.martinfowler.com/articles/continuousIntegration.html))
 - The git workflow is my favourite part so before doing this project I signed up for GitHub student pack and Development Program. Along with commits and workflow, I've also done a [pre-release](https://github.com/shailshukla96/patron-dapp/releases) for this repository. Thanks to gitHub!
 
 **File Layout:**
@@ -40,7 +40,7 @@ That's the spirit of Patron!
 - One more reference was the embark directory structure and then finally I made around 5 small partially completed projects to come up to the Boilerplate code that I have now for making Dapps. (Ref [Pre release tag](https://github.com/shailshukla96/patron-dapp/releases/tag/v0.1-alpha))
 
 **Miscellaneous:**
-- Use of TailwindCSS, and minimal design concepts
+- Use of TailwindCSS, a utility first CSS framework
 - Worked with git tags and releases
 - Brainstormed over directory structure and importance of separation of concerns and clean code.
 
