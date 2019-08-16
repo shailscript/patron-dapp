@@ -9,7 +9,7 @@ class CreateAccount extends Component {
                     event.preventDefault();
                     const name = this.name.value;
                     const email = this.email.value;
-                    this.createAccount(name, email)
+                    this.props.createAccount(name, email);
                     }
                 }
             >
