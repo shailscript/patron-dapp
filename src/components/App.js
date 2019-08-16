@@ -168,7 +168,7 @@ class App extends Component {
     if (!this.state.web3) {
       return (
         <div
-          className="bg-gray-200 mx-auto"
+          className="h-screen flex flex-col justify-center bg-gray-200 mx-auto"
         >
           <div className="mx-auto">
             <img src={ loadingImg } alt="Loading Web3, accounts, and contract..." />
