@@ -5,6 +5,7 @@ import getWeb3 from "../utils/getWeb3";
 import CreateAccount from "./CreateAccount";
 import Navbar from "./Navbar";
 import loadingImg from "./comet-spinner.gif";
+import firebase from '../utils/firebase';
 import "./App.css";
 
 class App extends Component {
@@ -15,12 +16,35 @@ class App extends Component {
       web3: null, 
       account: null, 
       contract: null,
-      loading: true,
+      patrons: [],
+      loading: false,
       message: null
     };
 
     this.createAccount = this.createAccount.bind(this);
     this.donate = this.donate.bind(this);
+    this.loadPatronsFromFirebase = this.loadPatronsFromFirebase.bind(this);
+  }
+
+  async loadPatronsFromFirebase() {
+    const ref = firebase.database().ref('patronDeployments');
+    
+    ref.on('value', (snapshot) => {
+      let values = snapshot.val();
+      let patrons = [];
+      for (let currValue in values) {
+        patrons.push({
+          id: currValue,
+          name: values[currValue].name,
+          email: values[currValue].email,
+          contractId: values[currValue].ContractId,
+          contractAddress: values[currValue].contractAddress,
+          ethAddress: values[currValue].ethAddress,
+          balance: values[currValue].balance
+        });
+      }
+      this.setState({ patrons, loading: false });
+    });
   }
 
   componentDidMount = async () => {
@@ -50,6 +74,7 @@ class App extends Component {
       );
       console.error(error);
     }
+    await this.loadPatronsFromFirebase();
   };
 
   createAccount = async (name, email) => {
@@ -57,15 +82,20 @@ class App extends Component {
       const { account, contract } = this.state;
 
       contract.methods.deployPatron(account).send( { from: account } );
-      contract.events.newPatronDeployed( {
-        filter: { from: account }
-      }, (error, event) => {
-        
-        //call to firebase - update data (deploymentId - maybe) name, address, email, contractAddr, balance
-        //update state loading: false
+      contract.events.newPatronDeployed( {}, (error, event) => {
+      console.log("Hello helo hello", event, this.state.loading);
+      const ref = firebase.database().ref('patronDeployments');
+      const patron = {
+        name: name,
+        email: email,
+        contractId: event.returnValues.id.toString(),
+        contractAddress: event.returnValues.patron,
+        ethAddress: event.returnValues.owner,
+        balance: 0
+      };
 
-        console.log("Hello helo hello", event, this.state.loading);
-
+      ref.push(patron);
+      this.setState({ loading: false });
       }).on('error', console.error);
 
     } catch (error) {
@@ -103,6 +133,37 @@ class App extends Component {
     }
   }
 
+  createCards = () => {
+    let cards = [];
+    this.state.patrons.map( (patron, index) => {
+      cards.push(<div className="w-full md:w-1/3 p-4" key={index}>
+      <div className="bg-blue-900 shadow rounded-lg p-8 text-white">
+        <p className="mb-2 text-2xl uppercase tracking-wide font-bold font-serif">
+          {patron.name}
+        </p>
+
+        <p className="mb-4 text-lg">
+          {patron.name} is creating awesome content for Ethereum developers.
+        </p>
+        <p className="mb-4 text-lg">
+          <a href={`mailto:${patron.email}`}>
+            {patron.email}
+          </a>
+        </p>
+
+        <a
+          href="/"
+          className="uppercase tracking-wider font-bold"
+        >
+          Donate (1ETH)
+          <i className="ml-3 fas fa-arrow-right" />
+        </a>
+      </div>
+    </div>)
+    })
+
+    return cards;
+  }
   render() {
     if (!this.state.web3) {
       return (
@@ -115,6 +176,7 @@ class App extends Component {
         </div>
       );
     }
+
     return (
       <div className="bg-gray-200">
         <Navbar />
@@ -124,15 +186,7 @@ class App extends Component {
         <CreateAccount createAccount={ this.createAccount } />
 
         <div className="container mx-auto flex flex-wrap">
-          <div className="w-full md:w-1/3 p-4">
-            <div className="h-64 bg-blue-900 rounded-lg shadow-lg"></div>
-          </div>
-          <div className="w-full md:w-1/3 p-4">
-            <div className="h-64 bg-blue-900 rounded-lg shadow-lg"></div>
-          </div>
-          <div className="w-full md:w-1/3 p-4">
-            <div className="h-64 bg-blue-900 rounded-lg shadow-lg"></div>
-          </div>
+          {this.createCards()}
         </div>
 
         <div>
