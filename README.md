@@ -33,7 +33,7 @@ That's the spirit of Patron!
 
 **Pipeline:**
 - I strongly believe for such a small project which has to build in a few weeks, it has not grown up to a level to implement CI/CD pipeline (ref [Thoughworks](https://www.thoughtworks.com/continuous-integration) and [Whitepaper by Martin Fowler](https://www.martinfowler.com/articles/continuousIntegration.html))
-- The git workflow is my favourite part so before doing this project I signed up for GitHub student pack and Development Program. Thanks to gitHub!
+- The git workflow is my favourite part so before doing this project I signed up for GitHub student pack and Development Program. Along with commits and workflow, I've also done a [pre-release](https://github.com/shailshukla96/patron-dapp/releases) for this repository. Thanks to gitHub!
 
 **File Layout:**
 - Directory structure was the biggest bottleneck and to implement that I referred to Gregory's suggestions and also dug deep into Truffle's scaffolding code for React Dapps. 
