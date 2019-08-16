@@ -48,9 +48,9 @@ That's the spirit of Patron!
 <br><br>
 
 # Deployment
-The contracts are deployed at testnet, visit etherscan.io for details of [Patron](), [Patron Factory](), and [Patron Dashboard]() contracts.
+The contracts are deployed at testnet, visit etherscan.io for details of of [Contract deployment](https://kovan.etherscan.io/address/0xd549322da4f8222c94428e5db7fa0380c4dfe255)
 
-The site is live using Firebase hosting, please visit the website [here]().
+The site is live using Firebase hosting, please visit the website [here](https://patron-eth.firebaseapp.com/).
 
 # Do it yourself
 Deploy the contracts on a network of your choice, using `truffle migrate`, `truffle deploy` or manually doing it using [Remix](https://remix.ethereum.org).
