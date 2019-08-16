@@ -18,7 +18,7 @@ That's the spirit of Patron!
 - Migrations for contracts written in `migrations` directory
 - Database and get/post calls (used firebase to achieve that)
 - Dotenv (not required as I have been using config files, still I have added it to complete rubric)
-- Testing (Rigorously done using improved remix solidity code editor)
+- Testing (Rigorously done using improved remix solidity code editor, but not with Mocha and Chai, my laptop damaged last night and so do you see those wierd commits that are done from a rented laptop with improper .gitconfig. I hope I can get an exception if you refer [previous projects](https://github.com/tonyfeung/crypto-lottery/tree/release-v1/test) where tests were done properly)
 
 **Frontend:**
 - Used React for frontend. Refer the `public`, `src` and `src/components` directory for frontend
