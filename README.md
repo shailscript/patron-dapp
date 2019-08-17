@@ -42,7 +42,7 @@ That's the spirit of Patron!
 **Miscellaneous:**
 - Use of TailwindCSS, a utility first CSS framework
 - Worked with git tags and releases
-- Brainstormed over directory structure and importance of separation of concerns and clean code.
+- Brainstormed over directory structure, separation of concerns and clean code.
 
 **A big thanks to the mentors of Blockchain Development program at George brown College!**
 <br><br>
