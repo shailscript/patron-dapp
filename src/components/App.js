@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   async loadPatronsFromFirebase() {
-    const ref = firebase.database().ref('patronDeployments');
+    const ref = firebase.database().ref('demoPatrons');
     
     ref.on('value', (snapshot) => {
       let values = snapshot.val();
@@ -84,7 +84,7 @@ class App extends Component {
 
       contract.methods.deployPatron(account).send( { from: account } );
       contract.events.newPatronDeployed( {}, (error, event) => {
-      const ref = firebase.database().ref('patronDeployments');
+      const ref = firebase.database().ref('demoPatrons');
       const patron = {
         name: name,
         email: email,
@@ -111,12 +111,17 @@ class App extends Component {
       const { web3, account } = this.state;
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = Patron.networks[networkId];
-      const instance = new web3.eth.Contract(
+      const instance = await new web3.eth.Contract(
         Patron.abi,
         deployedNetwork && to,
       );
       
       value = web3.utils.toWei(value, 'ether');
+      console.log("Patron Abi", Patron.abi);
+      console.log("deployed network", deployedNetwork);
+      console.log("Web3 network ID", networkId);
+      console.log("Patron address", to);
+      console.log(`Insance of patron`, instance);
       instance.methods.donate().send({ from: account, value: value });
       instance.events.donationSuccessful( {}, (error, event) => {
         console.log("Hello helo hello", event, this.state.loading);

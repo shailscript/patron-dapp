@@ -10,6 +10,8 @@ class CreateAccount extends Component {
                     const name = this.name.value;
                     const email = this.email.value;
                     this.props.createAccount(name, email);
+                    this.name.value = "";
+                    this.email.value = "";
                     }
                 }
             >
@@ -20,7 +22,7 @@ class CreateAccount extends Component {
                         type="text"
                         placeholder="Name"
                         ref={ (input) => { this.name = input }}
-                        required 
+                         
                     />
                 </div>
 
@@ -31,7 +33,7 @@ class CreateAccount extends Component {
                         type="text"
                         placeholder="Email"
                         ref={ (input) => { this.email = input }}
-                        required 
+                         
                     />
                 </div>
 
