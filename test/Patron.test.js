@@ -25,5 +25,4 @@ contract('Patron', ([deployer, seller, buyer]) => {
             assert.notEqual(address, undefined);
         });
     });
-
 });
